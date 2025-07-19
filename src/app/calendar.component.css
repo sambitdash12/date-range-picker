@@ -164,18 +164,3 @@ body {
 .day-cell.end-date .day-count {
   opacity: 1;
 }
-
-@media (max-width: 768px) {
-  .months-grid {
-    grid-template-columns: 1fr;
-    padding: 20px;
-  }
-  
-  .calendar-header {
-    padding: 15px 20px;
-  }
-  
-  .day-cell {
-    min-height: 60px;
-  }
-}
