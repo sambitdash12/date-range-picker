@@ -1,12 +1,60 @@
 
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: Arial;
   background-color: #f5f5f5;
+}
+
+.calendar-day {
+  background-color: #fff;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+.calendar-day:hover:not(.is-empty) {
+  background-color: #e3f2fd;
+}
+.calendar-day.is-empty {
+  background-color: #f8f9fa;
+  cursor: default;
+}
+
+/* Range states */
+.calendar-day.is-selected {
+  background-color: #2196f3;
+  color: #fff;
+}
+.calendar-day.in-range {
+  background-color: #bbdefb;
+}
+.calendar-day.is-start {
+  background-color: #2196f3;
+  color: #fff;
+  border-radius: 8px 0 0 8px;
+}
+.calendar-day.is-end {
+  background-color: #2196f3;
+  color: #fff;
+  border-radius: 0 8px 8px 0;
+}
+.calendar-day.is-start.is-end {
+  border-radius: 8px;
+}
+
+.calendar-day-num {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.calendar-day-count {
+  font-size: 12px;
+  opacity: 0.8;
+  font-weight: 400;
 }
 
 .mat-mdc-form-field {
@@ -17,31 +65,36 @@ body {
   margin-bottom: 20px;
 }
 
-.date-picker-container {
+.datepicker-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
-.date-picker-card {
+.card {
   margin-bottom: 30px;
 }
 
-.selected-range {
+.range-selected-display {
   margin-top: 20px;
   padding: 15px;
   background-color: #f5f5f5;
   border-radius: 8px;
 }
 
-.calendar-container {
-  background: white;
+.date-range-error {
+  color: #b71c1c;
+  margin: 10px 0;
+}
+
+.container {
+  background: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   overflow: hidden;
 }
 
-.calendar-header {
+.navigation {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -50,25 +103,32 @@ body {
   border-bottom: 1px solid #e9ecef;
 }
 
-.month-navigation {
+.label {
   font-size: 18px;
   font-weight: 500;
   color: #333;
 }
 
-.nav-button {
+.btn {
   color: #2196f3;
 }
 
-.months-grid {
+.months {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 30px;
   padding: 30px;
 }
 
-.month-calendar {
+.month {
   min-width: 350px;
+}
+
+.calendar-month-header h3 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
 }
 
 .month-header {
@@ -76,14 +136,7 @@ body {
   margin-bottom: 20px;
 }
 
-.month-header h3 {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 500;
-  color: #333;
-}
-
-.calendar-grid {
+.days-layout{
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 1px;
@@ -92,7 +145,7 @@ body {
   overflow: hidden;
 }
 
-.day-header {
+.day-label {
   background-color: #f8f9fa;
   padding: 12px 8px;
   text-align: center;
@@ -101,66 +154,4 @@ body {
   color: #666;
 }
 
-.day-cell {
-  background-color: white;
-  min-height: 80px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
-}
 
-.day-cell:hover:not(.empty) {
-  background-color: #e3f2fd;
-}
-
-.day-cell.empty {
-  background-color: #f8f9fa;
-  cursor: default;
-}
-
-.day-cell.selected {
-  background-color: #2196f3;
-  color: white;
-}
-
-.day-cell.in-range {
-  background-color: #bbdefb;
-}
-
-.day-cell.start-date {
-  background-color: #2196f3;
-  color: white;
-  border-radius: 8px 0 0 8px;
-}
-
-.day-cell.end-date {
-  background-color: #2196f3;
-  color: white;
-  border-radius: 0 8px 8px 0;
-}
-
-.day-cell.start-date.end-date {
-  border-radius: 8px;
-}
-
-.day-number {
-  font-size: 16px;
-  font-weight: 500;
-  margin-bottom: 4px;
-}
-
-.day-count {
-  font-size: 12px;
-  opacity: 0.8;
-  font-weight: 400;
-}
-
-.day-cell.selected .day-count,
-.day-cell.start-date .day-count,
-.day-cell.end-date .day-count {
-  opacity: 1;
-}
