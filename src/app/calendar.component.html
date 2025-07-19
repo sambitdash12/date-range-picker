@@ -1,5 +1,5 @@
-<div class="date-picker-container">
-  <mat-card class="date-picker-card">
+<div class="datepicker-container">
+  <mat-card class="card">
     <mat-card-header>
       <mat-card-title>Select Date Range</mat-card-title>
     </mat-card-header>
@@ -14,50 +14,61 @@
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-date-range-picker #picker></mat-date-range-picker>
       </mat-form-field>
-      
-      <div class="selected-range" *ngIf="range.value.start && range.value.end">
+      <div class="range-selected-display" *ngIf="range.value.start && range.value.end">
         <p><strong>Selected Date Range:</strong></p>
         <p>From: {{ range.value.start | date:'mediumDate' }}</p>
         <p>To: {{ range.value.end | date:'mediumDate' }}</p>
       </div>
     </mat-card-content>
-    <div *ngIf="rangeError" style="color: #b71c1c; margin: 10px 0;">{{errorMessage}}</div>
+    <div *ngIf="rangeError" class="date-range-error">{{ errorMessage }}</div>
   </mat-card>
 
-  <div class="calendar-container">
-    <div class="calendar-header">
-      <button mat-icon-button (click)="getPreviousMonth()" class="nav-button" [disabled]="isCurrentMonth()">
+
+  <div class="container">
+    <div class="navigation">
+      <button
+        mat-icon-button
+        (click)="getPreviousMonth()"
+        class="btn"
+        [disabled]="isCurrentMonth()">
         <mat-icon>chevron_left</mat-icon>
       </button>
-      <span class="month-navigation">
+      <span class="label">
         {{ getMonthYearDisplay() }}
       </span>
-      <button mat-icon-button (click)="getNextMonth()" class="nav-button">
+      <button
+        mat-icon-button
+        (click)="getNextMonth()"
+        class="btn">
         <mat-icon>chevron_right</mat-icon>
       </button>
     </div>
-
-    <div class="months-grid">
-      <div class="month-calendar" *ngFor="let month of visibleMonths">
+    <div class="months">
+      <div class="month" *ngFor="let month of visibleMonths">
         <div class="month-header">
           <h3>{{ month.monthName }} {{ month.year }}</h3>
         </div>
-        
-        <div class="calendar-grid">
-          <div class="day-header" *ngFor="let day of dayHeaderList">{{ day }}</div>
-          
-          <div 
-            class="day-cell"
+        <div class="days-layout">
+          <div class="day-label" *ngFor="let day of dayHeaderList">
+            {{ day }}
+          </div>
+          <div
+            class="calendar-day"
             *ngFor="let day of month.days"
-            [class.selected]="day.isSelected"
+            [class.is-selected]="day.isSelected"
             [class.in-range]="day.isInRange"
-            [class.start-date]="day.isStartDate"
-            [class.end-date]="day.isEndDate"
-            [class.empty]="!day.date || day.date.getMonth() !== month.month"
-            (click)="handleDateSelection(day)"
-          >
-            <div class="day-number" *ngIf="day.date && day.date.getMonth() === month.month">{{ day.date.getDate() }}</div>
-            <div class="day-count" *ngIf="day.date && day.date.getMonth() === month.month && day.count">{{ day.count | number }}</div>
+            [class.is-start]="day.isStartDate"
+            [class.is-end]="day.isEndDate"
+            [class.is-empty]="!day.date || day.date.getMonth() !== month.month"
+            (click)="handleDateSelection(day)">
+            <div class="calendar-day-num" *ngIf="day.date && day.date.getMonth() === month.month">
+              {{ day.date.getDate() }}
+            </div>
+            <div
+              class="calendar-day-count"
+              *ngIf="day.date && day.date.getMonth() === month.month && day.count">
+              {{ day.count | number }}
+            </div>
           </div>
         </div>
       </div>
